@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace AzureConnect
 {
@@ -89,11 +90,48 @@ namespace AzureConnect
             }
 
             // save IP numer in list
-            SaveIPNumber();
+            try
+            {
+               SaveIPNumber();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Uma exceção ocorreu ao salvar o IPNumber no arquivo de IPs:" + 
+                    Environment.NewLine +
+                    ex.Message,
+                    "Azure Connect", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             // execute command
-            System.Diagnostics.Process.Start("CMD.exe", "/C " + strArgs);
+            try
+            {
+                //Process.Start("CMD.exe", "/C " + strArgs);
+                runCmdAzure();
 
+                // user message
+                MessageBox.Show("Liberação de Porta efetuada com sucesso!",
+                    "Azure Connect",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                //quit
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Uma exceção ocorreu ao liberar o IP no Azure DB:" +
+                Environment.NewLine +
+                ex.Message,
+                "Azure Connect", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void runCmdAzure()
+        {
+            String command = @"/C " + strArgs;
+            ProcessStartInfo cmdsi = new ProcessStartInfo("cmd.exe");
+            cmdsi.Arguments = command;
+            Process cmd = Process.Start(cmdsi);
+            cmd.WaitForExit();
         }
 
         // FILL STRING ARGS
@@ -129,24 +167,28 @@ namespace AzureConnect
         private void SaveIPNumber()
         {
             // define o arquivo
-            string path = Environment.CurrentDirectory + @"/ConfigIPs.txt";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"/AzureConnect/ConfigIPs.txt";
             string readText = "";
+            FileInfo file = new FileInfo(path);
 
             // Open the file to read from.
-            if (File.Exists(path))
+            if (file.Exists)
             {
                 // verifica se o IP atual ja foi incluido na ultima linha 
-
                 string t = File.ReadLines(path).Last();
                 if (t == lblIP.Text) { return; }
 
                 readText = File.ReadAllText(path);
-
             }
 
             // Create a file to write to.
-            string createText = readText + lblIP.Text + Environment.NewLine;
-            File.WriteAllText(path, createText);
+            string createdText = readText + lblIP.Text + Environment.NewLine;
+            file.Directory.Create(); // If the directory already exists, this method does nothing.
+            File.WriteAllText(file.FullName, createdText);
+
+            //message box show
+            //MessageBox.Show("Arquivo de registro de IPs salvo com sucesso...", "Azure Connect",
+            //                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
