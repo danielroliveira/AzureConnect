@@ -148,6 +148,7 @@ namespace AzureConnect
             //fill the combobox
             cmbFilial.Items.Add("Nova Sião");
             cmbFilial.Items.Add("Vinde");
+            cmbFilial.Items.Add("Home");
             cmbFilial.SelectedItem = null;
         }
 

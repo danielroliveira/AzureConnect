@@ -73,7 +73,7 @@
     <StartupObject>AzureConnect.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>NovaSiao_ico_256px.ico</ApplicationIcon>
+    <ApplicationIcon>Backup2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -157,6 +157,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Backup2.ico" />
     <Content Include="NovaSiao_ico_256px.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
