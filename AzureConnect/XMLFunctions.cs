@@ -35,10 +35,10 @@ namespace AzureConnect
 							new XElement("Grupo", ""),
 							new XElement("Server", "")
 						),
-						new XElement("Contas",
-							new XElement("Conta1", "conta1"),
-							new XElement("Conta2", "conta2"),
-							new XElement("Conta3", "conta3")
+						new XElement("Rules",
+							new XElement("rule1", "regraTexto1"),
+							new XElement("rule2", "regraTexto2"),
+							new XElement("rule3", "regraTexto3")
 						)
 					)
 				)
@@ -75,23 +75,23 @@ namespace AzureConnect
 
 		// GET CONFIG XML DEFAULT VALUE
 		// =============================================================================
-		public static Dictionary<string, string> ObterContas()
+		public static Dictionary<string, string> ObterRegras()
 		{
 			try
 			{
 				XmlDocument config = MyConfig();
 				if (config != null)
 				{
-					Dictionary<string, string> dicContas = new Dictionary<string, string>();
+					Dictionary<string, string> dicRegras = new Dictionary<string, string>();
 
-					var contas = config.SelectSingleNode("Configuracao").SelectSingleNode("Contas").ChildNodes;
+					var regras = config.SelectSingleNode("Configuracao").SelectSingleNode("Rules").ChildNodes;
 
-					foreach (XmlNode ct in contas)
+					foreach (XmlNode regra in regras)
 					{
-						dicContas.Add(ct.Name, ct.InnerText);
+						dicRegras.Add(regra.Name, regra.InnerText);
 					}
 
-					return dicContas;
+					return dicRegras;
 				}
 				else
 				{

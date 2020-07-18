@@ -47,11 +47,11 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(102, 11);
+			this.label1.Location = new System.Drawing.Point(102, 15);
 			this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(113, 18);
-			this.label1.TabIndex = 1;
+			this.label1.TabIndex = 0;
 			this.label1.Text = "Meu IP Atual";
 			// 
 			// btnClose
@@ -62,7 +62,7 @@
 			this.btnClose.Location = new System.Drawing.Point(184, 386);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(106, 44);
-			this.btnClose.TabIndex = 2;
+			this.btnClose.TabIndex = 9;
 			this.btnClose.Text = "&Fechar";
 			this.btnClose.UseVisualStyleBackColor = true;
 			this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -75,7 +75,7 @@
 			this.btnLiberar.Location = new System.Drawing.Point(23, 386);
 			this.btnLiberar.Name = "btnLiberar";
 			this.btnLiberar.Size = new System.Drawing.Size(154, 44);
-			this.btnLiberar.TabIndex = 2;
+			this.btnLiberar.TabIndex = 8;
 			this.btnLiberar.Text = "&Liberar Porta";
 			this.btnLiberar.UseVisualStyleBackColor = true;
 			this.btnLiberar.Click += new System.EventHandler(this.btnLiberar_Click);
@@ -120,12 +120,12 @@
 			// cmbFilial
 			// 
 			this.cmbFilial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbFilial.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cmbFilial.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cmbFilial.FormattingEnabled = true;
 			this.cmbFilial.Location = new System.Drawing.Point(67, 127);
 			this.cmbFilial.Name = "cmbFilial";
-			this.cmbFilial.Size = new System.Drawing.Size(183, 31);
-			this.cmbFilial.TabIndex = 4;
+			this.cmbFilial.Size = new System.Drawing.Size(183, 26);
+			this.cmbFilial.TabIndex = 2;
 			this.cmbFilial.SelectedIndexChanged += new System.EventHandler(this.cmbFilial_SelectedIndexChanged);
 			// 
 			// label2
@@ -135,7 +135,7 @@
 			this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(147, 18);
-			this.label2.TabIndex = 5;
+			this.label2.TabIndex = 1;
 			this.label2.Text = "Escolha a Conta:";
 			// 
 			// lblCommand
@@ -146,34 +146,35 @@
 			this.lblCommand.Location = new System.Drawing.Point(28, 299);
 			this.lblCommand.Name = "lblCommand";
 			this.lblCommand.Size = new System.Drawing.Size(260, 67);
-			this.lblCommand.TabIndex = 6;
+			this.lblCommand.TabIndex = 7;
 			this.lblCommand.Text = "Texto do Commando Azure CLI";
 			this.lblCommand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.lblCommand.DoubleClick += new System.EventHandler(this.lblCommand_Click);
 			// 
 			// txtGrupo
 			// 
-			this.txtGrupo.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtGrupo.Location = new System.Drawing.Point(67, 187);
+			this.txtGrupo.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtGrupo.Location = new System.Drawing.Point(67, 193);
 			this.txtGrupo.Name = "txtGrupo";
 			this.txtGrupo.ReadOnly = true;
-			this.txtGrupo.Size = new System.Drawing.Size(183, 31);
-			this.txtGrupo.TabIndex = 7;
+			this.txtGrupo.Size = new System.Drawing.Size(183, 27);
+			this.txtGrupo.TabIndex = 4;
+			this.txtGrupo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(127, 166);
+			this.label3.Location = new System.Drawing.Point(127, 168);
 			this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(63, 18);
-			this.label3.TabIndex = 5;
+			this.label3.TabIndex = 3;
 			this.label3.Text = "Grupo:";
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(125, 225);
+			this.label4.Location = new System.Drawing.Point(125, 229);
 			this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(66, 18);
@@ -182,12 +183,13 @@
 			// 
 			// txtServer
 			// 
-			this.txtServer.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtServer.Location = new System.Drawing.Point(67, 246);
+			this.txtServer.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtServer.Location = new System.Drawing.Point(67, 253);
 			this.txtServer.Name = "txtServer";
 			this.txtServer.ReadOnly = true;
-			this.txtServer.Size = new System.Drawing.Size(183, 31);
-			this.txtServer.TabIndex = 7;
+			this.txtServer.Size = new System.Drawing.Size(183, 27);
+			this.txtServer.TabIndex = 6;
+			this.txtServer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// frmPrincipal
 			// 
@@ -210,7 +212,7 @@
 			this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
 			this.Name = "frmPrincipal";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Liberar Porta no Azure";
+			this.Text = "Liberar IP no Azure";
 			this.Shown += new System.EventHandler(this.frmPrincipal_Shown);
 			this.vPanel1.Content.ResumeLayout(false);
 			this.vPanel1.ResumeLayout(false);
