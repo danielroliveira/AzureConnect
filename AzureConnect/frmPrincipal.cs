@@ -58,6 +58,7 @@ namespace AzureConnect
 			{
 				MessageBox.Show("Uma exceção ocorreu ao Obter Azure Account..." + "\n" +
 					 ex.Message, "Exceção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				AzureLogin();
 			}
 		}
 
@@ -104,6 +105,19 @@ namespace AzureConnect
 
 			//fill StringArgs
 			Create_StringArgs();
+		}
+
+		private void AzureLogin()
+		{
+			try
+			{
+				AzureFunctions.LoginAzureAccount();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Uma exceção ocorreu ao Realizar o LOGIN..." + "\n" +
+					 ex.Message, "Exceção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
 		}
 
 		#endregion // SUB NEW --- END
