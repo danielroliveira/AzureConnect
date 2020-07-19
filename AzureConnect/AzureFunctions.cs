@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
 namespace AzureConnect
@@ -70,20 +65,21 @@ namespace AzureConnect
 				};
 				process.Start();
 
+				/*
 				// Now read the value
 				string myError = process.StandardError.ReadToEnd();
 				if (!string.IsNullOrEmpty(myError))
 				{
 					throw new Exception(myError);
 				}
+				*/
 
 				string jsonResult = process.StandardOutput.ReadToEnd();
 				process.WaitForExit();
 
 				if (string.IsNullOrEmpty(jsonResult))
 				{
-					throw new Exception("Uma exceção ocorreu ao obter os dados da conta Azure...\n" +
-						"Favor realizar o login na conta do AZURE");
+					return null;
 				}
 
 				// Deserializing json data to object  
@@ -102,7 +98,7 @@ namespace AzureConnect
 		}
 
 		// LOGIN IN AZURE
-		public static string LoginAzureAccount()
+		public static AzureAccount LoginAzureAccount()
 		{
 			try
 			{
@@ -129,7 +125,36 @@ namespace AzureConnect
 						"Favor realizar o login na conta do AZURE");
 				}
 
-				return jsonResult;
+				return GetAzureAccountData();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		// LOGOUT IN AZURE
+		public static void LogoutAzureAccount()
+		{
+			try
+			{
+				System.Diagnostics.Process process = new System.Diagnostics.Process();
+				process.StartInfo = new System.Diagnostics.ProcessStartInfo()
+				{
+					UseShellExecute = false,
+					CreateNoWindow = true,
+					WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+					FileName = "cmd.exe",
+					Arguments = "/C az logout",
+					RedirectStandardError = true,
+					RedirectStandardOutput = true
+				};
+				process.Start();
+
+				// Now read the value
+				string jsonResult = process.StandardOutput.ReadToEnd();
+				process.WaitForExit();
+
 			}
 			catch (Exception ex)
 			{

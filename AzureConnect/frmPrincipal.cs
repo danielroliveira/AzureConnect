@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CamadaUI.Modals;
+using System;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -8,7 +9,7 @@ using static AzureConnect.XMLFunctions;
 
 namespace AzureConnect
 {
-	public partial class frmPrincipal : Form
+	public partial class frmPrincipal : frmModFinBorder
 	{
 		private string myIP;
 		private string strArgs = "";
@@ -20,6 +21,7 @@ namespace AzureConnect
 		private string endIP = "--end-ip-address";
 		private bool notOpen = false;
 		private bool isShow = false;
+		private AzureAccount conta = null;
 
 		#region SUB NEW
 
@@ -48,17 +50,26 @@ namespace AzureConnect
 			txtGrupo.Validated += txt_Validated;
 			txtServer.MouseDoubleClick += txt_MouseDoubleClick;
 			txtServer.Validated += txt_Validated;
+			lblConta.MouseDown += lblConta_MouseDown;
 
 			//--- GET Account Data
 			try
 			{
-				AzureFunctions.GetAzureAccountData();
+				conta = AzureFunctions.GetAzureAccountData();
+				DefineContaEnable();
+
+				if (conta == null)
+				{
+					MessageBox.Show("Não houve retorno ao obter os dados da conta Azure...\n" +
+						"Favor realizar o login na conta do AZURE", "Conexão Azure",
+						MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+				}
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show("Uma exceção ocorreu ao Obter Azure Account..." + "\n" +
 					 ex.Message, "Exceção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				AzureLogin();
 			}
 		}
 
@@ -107,16 +118,21 @@ namespace AzureConnect
 			Create_StringArgs();
 		}
 
-		private void AzureLogin()
+		private void DefineContaEnable()
 		{
-			try
+			if (conta == null)
 			{
-				AzureFunctions.LoginAzureAccount();
+				lblConta.Text = "Favor Realizar Login";
+				btnLiberar.Enabled = false;
+				mnuItemConectar.Enabled = true;
+				mnuItemDesconectar.Enabled = false;
 			}
-			catch (Exception ex)
+			else
 			{
-				MessageBox.Show("Uma exceção ocorreu ao Realizar o LOGIN..." + "\n" +
-					 ex.Message, "Exceção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				lblConta.Text = conta.user.name;
+				btnLiberar.Enabled = true;
+				mnuItemConectar.Enabled = false;
+				mnuItemDesconectar.Enabled = true;
 			}
 		}
 
@@ -393,5 +409,74 @@ namespace AzureConnect
 		}
 
 		#endregion // CONTROL FUNCTIONS --- END
+
+		#region CONECTAR MENU
+
+		private void lblConta_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+			{
+				Control c = (Control)sender;
+				// revela menu
+
+				mnuConexao.Show(c.PointToScreen(e.Location));
+			}
+		}
+
+		private void Conectar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// Ampulheta ON
+				Cursor.Current = Cursors.WaitCursor;
+
+				conta = AzureFunctions.LoginAzureAccount();
+				DefineContaEnable();
+
+				// user message
+				MessageBox.Show("LOGIN realizado com sucesso!", "Login",
+					MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Uma exceção ocorreu ao Realizar o LOGIN..." + "\n" +
+					 ex.Message, "Exceção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			finally
+			{
+				// Ampulheta OFF
+				Cursor.Current = Cursors.Default;
+			}
+		}
+
+		private void Desconectar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// Ampulheta ON
+				Cursor.Current = Cursors.WaitCursor;
+
+				AzureFunctions.LogoutAzureAccount();
+				conta = null;
+				DefineContaEnable();
+
+				// user message
+				MessageBox.Show("LOGOUT concluído!", "Logout",
+					MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Uma exceção ocorreu ao Realizar o LOGIN..." + "\n" +
+					 ex.Message, "Exceção", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			finally
+			{
+				// Ampulheta OFF
+				Cursor.Current = Cursors.Default;
+			}
+		}
+
+		#endregion // CONECTAR MENU --- END
+
 	}
 }

@@ -106,6 +106,12 @@
   <ItemGroup>
     <Compile Include="AzureAccount.cs" />
     <Compile Include="AzureFunctions.cs" />
+    <Compile Include="frmModFinBorder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModFinBorder.designer.cs">
+      <DependentUpon>frmModFinBorder.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     <Compile Include="Settings.cs" />
     <Compile Include="VerifyAzure.cs" />
     <Compile Include="XMLFunctions.cs" />
+    <EmbeddedResource Include="frmModFinBorder.resx">
+      <DependentUpon>frmModFinBorder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPrincipal.resx">
       <DependentUpon>frmPrincipal.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +137,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -160,6 +170,9 @@
   <ItemGroup>
     <Content Include="Backup2.ico" />
     <Content Include="NovaSiao_ico_256px.ico" />
+    <None Include="Resources\block_24.png" />
+    <None Include="Resources\accept_24.png" />
+    <None Include="Resources\CloseIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
