@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Web.Script.Serialization;
 
 namespace AzureConnect
@@ -113,10 +114,36 @@ namespace AzureConnect
 					RedirectStandardError = true,
 					RedirectStandardOutput = true
 				};
-				process.Start();
+
+
+
+
+				/*
+
+				Action<System.Diagnostics.Process> kill = (p) =>
+				{
+					p.Kill();
+				};
+
+				Thread t = new Thread(
+					() =>
+					{
+						Thread.Sleep(20000);
+						kill.Invoke(process);
+					}
+				);
+				t.Start();
+
+				*/
+
+
+
 
 				// Now read the value
+				process.Start();
+
 				string jsonResult = process.StandardOutput.ReadToEnd();
+
 				process.WaitForExit();
 
 				if (string.IsNullOrEmpty(jsonResult))
@@ -132,6 +159,20 @@ namespace AzureConnect
 				throw ex;
 			}
 		}
+
+		/*
+		public static void setTimeout(Action<System.Diagnostics.Process> TheAction, int Timeout)
+		{
+			Thread t = new Thread(
+				(p) =>
+				{
+					Thread.Sleep(Timeout);
+					TheAction.Invoke(p);
+				}
+			);
+			t.Start();
+		}
+		*/
 
 		// LOGOUT IN AZURE
 		public static void LogoutAzureAccount()

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using static AzureConnect.XMLFunctions;
+using System.Threading;
 
 namespace AzureConnect
 {
@@ -425,11 +426,11 @@ namespace AzureConnect
 
 		private void Conectar_Click(object sender, EventArgs e)
 		{
+			// Ampulheta ON
+			Cursor.Current = Cursors.WaitCursor;
+
 			try
 			{
-				// Ampulheta ON
-				Cursor.Current = Cursors.WaitCursor;
-
 				conta = AzureFunctions.LoginAzureAccount();
 				DefineContaEnable();
 
