@@ -15,9 +15,11 @@ namespace AzureConnect
 		//==============================================================================================
 		public static bool VerificaConfigXML()
 		{
-			string FindXML = Application.StartupPath + "\\Config.xml";
+			string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"/AzureConnect/Config.xml";
 
-			if (File.Exists(FindXML))
+			//string FindXML = Application.StartupPath + "\\Config.xml";
+
+			if (File.Exists(path))
 				return true;
 			else
 				return false;
@@ -29,6 +31,8 @@ namespace AzureConnect
 		{
 			try
 			{
+				FileInfo file = CreateXMLDirectory();
+
 				new XDocument(
 					new XElement("Configuracao",
 						new XElement("DefaultValues",
@@ -42,13 +46,30 @@ namespace AzureConnect
 						)
 					)
 				)
-				.Save("Config.xml");
+
+				.Save(file.FullName);
 
 			}
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message, "Exceção XML", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
+		}
+
+
+		private static FileInfo CreateXMLDirectory()
+		{
+			// define o arquivo
+			string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"/AzureConnect/Config.xml";
+			FileInfo file = new FileInfo(path);
+
+			// Check file Exists
+			if (!file.Exists)
+			{
+				file.Directory.Create(); // If the directory already exists, this method does nothing.
+			}
+
+			return file;
 		}
 
 		// GET CONFIG XML DEFAULT VALUE
@@ -113,7 +134,7 @@ namespace AzureConnect
 				XmlDocument myXML = new XmlDocument();
 				try
 				{
-					myXML.Load(Application.StartupPath + "\\Config.xml");
+					myXML.Load(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"/AzureConnect/Config.xml");
 					return myXML;
 				}
 				catch (Exception ex)
